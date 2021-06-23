@@ -13,12 +13,12 @@ async function main() {
     deployer.address
   );
 
-  const SCAM = await hre.ethers.getContractFactory("Modesto_Token");
+  const Modesto_Token = await hre.ethers.getContractFactory("Modesto_Token");
 
-  const scam = await SCAM.deploy();
-  await scam.deployed();
+  const modesto_Token = await Modesto_Token.deploy();
+  await modesto_Token.deployed();
 
-  console.log("Modesto_Token deployed to:", scam.address);
+  console.log("Modesto_Token deployed to:", modesto_Token.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
