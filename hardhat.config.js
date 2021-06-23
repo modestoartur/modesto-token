@@ -1,21 +1,55 @@
 require("@nomiclabs/hardhat-waffle");
-
-// This is a sample Hardhat task. To learn how to create your own go to
-// https://hardhat.org/guides/create-task.html
-task("accounts", "Prints the list of accounts", async () => {
-  const accounts = await ethers.getSigners();
-
-  for (const account of accounts) {
-    console.log(account.address);
-  }
-});
-
-// You need to export an object to set up your config
-// Go to https://hardhat.org/config/ to learn more
+require("@nomiclabs/hardhat-etherscan");
+const {
+  infuraProjectId,
+  mnemonic,
+  privateKey,
+  etherscanApiKey
+} = require('./secrets.json');
 
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  solidity: "0.5.6", // >=0.4.22 <0.6.0
+  solidity: "0.8.4",
+  paths: {
+    artifacts: "./src/artifacts",
+  },
+  networks: {
+    hardhat: {
+      chainId: 1337
+    },
+    rinkeby: {
+      url: `https://rinkeby.infura.io/v3/${infuraProjectId}`,
+      accounts: {
+        mnemonic: mnemonic
+      }
+    },
+    ropsten: {
+      url: `https://ropsten.infura.io/v3/${infuraProjectId}`,
+      accounts: [privateKey]
+    },
+    kovan: {
+      url: `https://kovan.infura.io/v3/${infuraProjectId}`,
+      accounts: {
+        mnemonic: mnemonic
+      }
+    },
+    goerli: {
+      url: `https://goerli.infura.io/v3/${infuraProjectId}`,
+      accounts: {
+        mnemonic: mnemonic
+      }
+    },
+    mainnet: {
+      url: `https://mainnet.infura.io/v3/${infuraProjectId}`,
+      accounts: {
+        mnemonic: mnemonic
+      }
+    }
+  },
+
+  etherscan: {
+    apiKey: etherscanApiKey
+  },
 };
